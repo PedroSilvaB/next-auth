@@ -1,4 +1,5 @@
 import { Box, Grid } from "@chakra-ui/layout"
+import BottonBar from "./BottomBar"
 import Footer from "./Footer"
 import TopBar from "./TopBar"
 
@@ -10,6 +11,7 @@ const Layout: React.FC = ({ children }) => {
         {children}
       </Box>
       <Footer />
+      <BottonBar />
     </Grid>
   )
 }

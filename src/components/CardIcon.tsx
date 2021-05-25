@@ -1,18 +1,20 @@
-import { Button } from '@chakra-ui/button';
-import { useColorMode } from '@chakra-ui/color-mode';
-import { Box } from '@chakra-ui/layout';
-
-const CardIcon: React.FC<{ onClick: React.MouseEventHandler }> = ({ children, onClick }) => {
-  const { colorMode } = useColorMode()
-
+import { Button, ButtonProps } from '@chakra-ui/button';
+import { useRouter } from 'next/dist/client/router';
+interface CardIconType extends ButtonProps {
+  router?: string
+}
+const CardIcon: React.FC<CardIconType> = ({ children, router, onClick, onMouseMove, ...props }) => {
+  const { push, prefetch } = useRouter()
   return (
     <Button
+      onMouseMove={router ? () => prefetch(router) : onMouseMove} onClick={router ? () => { push(router) } : onClick}
       _hover={{
         borderWidth: ["3px"],
-        bg: colorMode === "light" ? ["gray.50"] : ["gray.800"]
+        bg: ["gray.800"],
+        _light: { bg: ["gray.50"] }
       }}
       bg="whiteAlpha.200"
-      rounded="full" shadow="sm" borderWidth="2px" h="14" w="14" p="3.5" onClick={onClick}>
+      rounded="full" shadow="sm" borderWidth="2px" h="14" w="14" p="3.5" {...props}>
       {children}
     </Button>
   );
